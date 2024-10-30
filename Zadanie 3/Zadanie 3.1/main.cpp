@@ -1,45 +1,48 @@
+// main.cpp
+
 #include "arraylist.h"
-#include <cassert>
 #include <iostream>
+#include <cassert>
 
 int main() {
     ArrayList<int> list(5);
 
-    // Test dodawania elementów
     list.push_back(10);
     list.push_back(20);
     list.push_back(30);
-    list.display();
-    assert(list.size() == 3); 
-    assert(list.back() == 30);
-    std::cout << "Test dodawania elementów: OK" << std::endl;
-    list.display();
+    assert(list.size() == 3);  
+    assert(list.back() == 30); 
 
-    // Test usuwania elementów
+    list.push_front(5);
+    assert(list.size() == 4);  
+    assert(list.front() == 5); 
+
+    assert(list.front() == 5);  
+    assert(list.back() == 30);   
+
+    list.pop_front();
+    assert(list.size() == 3);    
+    assert(list.front() == 10);  
+
     list.pop_back();
-    assert(list.size() == 2); 
-    assert(list.back() == 20);
-    std::cout << "Test usuwania elementów: OK" << std::endl;
-    list.display();
+    assert(list.size() == 2);   
+    assert(list.back() == 20);   
 
-    // Test kopiowania listy
-    ArrayList<int> list_copy(list);
-    assert(list_copy.size() == 2); 
-    assert(list_copy.back() == 20);
-    std::cout << "Test kopiowania listy: OK" << std::endl;
-    std::cout << "Lista orginalna: "; list.display();
-    std::cout << "Lista skopiowana: "; list_copy.display();
-
-    // Test, że oryginalna lista i skopiowana są niezależne
     list.push_back(40);
-    assert(list.size() == 3);
-    assert(list.back() == 40);
-    assert(list_copy.size() == 2);
-    assert(list_copy.back() == 20);
-    std::cout << "Test niezależności kopiowania: OK" << std::endl;
-    list.display();
+    list.push_back(50);
+    list.reverse();
+    assert(list.front() == 50);  
+    assert(list.back() == 10);   
 
-    std::cout << "Wszystkie testy zadania 3.1 zakończone sukcesem!" << std::endl;
+    list.sort();
+    assert(list.front() == 10);  
+    assert(list.back() == 50);   
+
+    list.clear();
+    assert(list.empty());        
+    assert(list.size() == 0);   
+
+    std::cout << "All tests passed successfully!" << std::endl;
 
     return 0;
 }
