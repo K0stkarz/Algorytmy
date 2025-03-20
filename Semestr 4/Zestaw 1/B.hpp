@@ -125,13 +125,21 @@ setLinked<T> setLinked<T>::sum(setLinked<T> set) {
 template<typename T>
 setLinked<T> setLinked<T>::intersection(setLinked<T> set) {
     setLinked<T> result;
-    Node* current = head;
-    while (current) {
-        if (set.contains(current->data)) {
-            result.add(current->data);
+    Node* current1 = head;
+    Node* current2 = set.head;
+
+    while (current1 && current2) {
+        if (current1->data == current2->data) {
+            result.add(current1->data);
+            current1 = current1->next;
+            current2 = current2->next;
+        } else if (current1->data < current2->data) {
+            current1 = current1->next;
+        } else {
+            current2 = current2->next;
         }
-        current = current->next;
     }
+
     return result;
 }
 
