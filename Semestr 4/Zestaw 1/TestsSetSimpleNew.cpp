@@ -3,18 +3,18 @@
 #include <vector>
 #include <random>
 #include <algorithm>
-#include "A.hpp"
+#include "A2.hpp"
 
 int main() {
     const int size = 50;
     const int iterations = 10;
     double time[iterations];
     
-    setSimple<int> simpleSet2(size * iterations);
+    SetSimple simpleSet2(size * iterations);
 
     std::cout << "setSimple add" << std::endl;
     for(int i = 0; i < iterations; i++) {
-    setSimple<int> simpleSet1(size * i);
+    SetSimple simpleSet1(size * i);
         auto start = std::chrono::high_resolution_clock::now();\
         for (int k = 0; k < 100; k++) {
             for (int j = 0; j < size * i; j++) {
@@ -26,7 +26,7 @@ int main() {
         std::cout << i << " " << avgTime << std::endl;
     } 
     
-    setSimple<int> simpleSet1(size * iterations);
+    SetSimple simpleSet1(size * iterations);
 
     std::vector<int> numbers(size * iterations);
     for (int l = 0; l < size * iterations; l++) {

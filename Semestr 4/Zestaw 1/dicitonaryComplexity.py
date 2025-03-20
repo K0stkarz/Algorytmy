@@ -25,6 +25,6 @@ def plot_data(data):
     plt.show()
 
 if __name__ == "__main__":
-    file_path = 'c:\\Users\\Kostkarz\\Desktop\\Algorytmy\\Semestr 4\\Zestaw 1\\timesDictionary,txt'
+    file_path = '/home/kostkarz/Dokumenty/Algorytmy/Semestr 4/Zestaw 1/timesDictionary.txt'
     data = read_data(file_path)
     plot_data(data)

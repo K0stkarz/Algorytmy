@@ -34,6 +34,6 @@ def plot_times(times):
         plt.show()
 
 if __name__ == "__main__":
-    file_path = 'c:\\Users\\Kostkarz\\Desktop\\Algorytmy\\Semestr 4\\Zestaw 1\\times.txt'
+    file_path = '/home/kostkarz/Dokumenty/Algorytmy/Semestr 4/Zestaw 1/times.txt'
     times = read_times(file_path)
     plot_times(times)
