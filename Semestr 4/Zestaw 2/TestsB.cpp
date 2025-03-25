@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cassert>
-#include "B.hpp" // Plik nagłówkowy z implementacją setHashed
+#include "B.hpp" // Plik nagłówkowy z implementacją SetHashed
 
-// Funkcja do testowania podstawowych funkcjonalności klasy setHashed
+// Funkcja do testowania podstawowych funkcjonalności klasy SetHashed
 void testSetHashed() {
-    std::cout << "=== Testowanie podstawowych funkcjonalności setHashed ===" << std::endl;
+    std::cout << "=== Testowanie podstawowych funkcjonalności SetHashed ===" << std::endl;
 
     // Test konstruktora i dodawania elementów
-    setHashed<int> set1;
+    SetHashed<int> set1;
     set1.insert(1);
     set1.insert(3);
     set1.insert(5);
@@ -23,35 +23,35 @@ void testSetHashed() {
     assert(set1.contains(1) && !set1.contains(3) && set1.contains(5));
 
     // Test metody unionSet (suma zbiorów)
-    setHashed<int> set2;
+    SetHashed<int> set2;
     set2.insert(2);
     set2.insert(4);
     set2.insert(5);
     std::cout << "Set2: ";
     set2.print();
 
-    setHashed<int> set3 = set1.unionSet(set2);
+    SetHashed<int> set3 = set1.unionSet(set2);
     std::cout << "Set3 (suma Set1 i Set2): ";
     set3.print();
     assert(set3.contains(1) && set3.contains(2) && !set3.contains(3) &&
            set3.contains(4) && set3.contains(5));
 
     // Test metody intersection (części wspólnej)
-    setHashed<int> set4 = set1.intersection(set2);
+    SetHashed<int> set4 = set1.intersection(set2);
     std::cout << "Set4 (część wspólna Set1 i Set2): ";
     set4.print();
     assert(!set4.contains(1) && !set4.contains(2) && !set4.contains(3) &&
            !set4.contains(4) && set4.contains(5));
 
     // Test metody difference (różnicy zbiorów)
-    setHashed<int> set5 = set1.difference(set2);
+    SetHashed<int> set5 = set1.difference(set2);
     std::cout << "Set5 (różnica Set1 - Set2): ";
     set5.print();
     assert(set5.contains(1) && !set5.contains(2) && !set5.contains(3) &&
            !set5.contains(4) && !set5.contains(5));
 
     // Test metody equals
-    setHashed<int> set6;
+    SetHashed<int> set6;
     set6.insert(1);
     set6.insert(5);
     std::cout << "Set6: ";
@@ -72,13 +72,13 @@ void testEdgeCases() {
     std::cout << "\n=== Testowanie przypadków granicznych ===" << std::endl;
 
     // Test pustego zbioru
-    setHashed<int> emptySet;
+    SetHashed<int> emptySet;
     std::cout << "Pusty zbiór: ";
     emptySet.print();
     assert(emptySet.getSize() == 0);
 
     // Test zbioru z jednym elementem
-    setHashed<int> singleElement;
+    SetHashed<int> singleElement;
     singleElement.insert(3);
     std::cout << "Zbiór z jednym elementem: ";
     singleElement.print();
@@ -86,7 +86,7 @@ void testEdgeCases() {
     assert(singleElement.getSize() == 1);
 
     // Test zbioru z wieloma elementami
-    setHashed<int> fullSet;
+    SetHashed<int> fullSet;
     for (int i = 0; i < 10; i++) {
         fullSet.insert(i);
     }
@@ -95,18 +95,18 @@ void testEdgeCases() {
     assert(fullSet.getSize() == 10);
 
     // Test operacji na pustych zbiorach
-    setHashed<int> sumEmpty = emptySet.unionSet(emptySet);
+    SetHashed<int> sumEmpty = emptySet.unionSet(emptySet);
     std::cout << "Suma dwóch pustych zbiorów: ";
     sumEmpty.print();
     assert(sumEmpty.getSize() == 0);
 
-    setHashed<int> intersectionEmpty = emptySet.intersection(fullSet);
+    SetHashed<int> intersectionEmpty = emptySet.intersection(fullSet);
     std::cout << "Część wspólna pustego i pełnego zbioru: ";
     intersectionEmpty.print();
     assert(intersectionEmpty.getSize() == 0);
 
     // Test różnicy pustego zbioru i pełnego zbioru
-    setHashed<int> differenceEmpty = emptySet.difference(fullSet);
+    SetHashed<int> differenceEmpty = emptySet.difference(fullSet);
     std::cout << "Różnica pustego i pełnego zbioru: ";
     differenceEmpty.print();
     assert(differenceEmpty.getSize() == 0);

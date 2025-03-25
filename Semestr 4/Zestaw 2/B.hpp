@@ -3,7 +3,7 @@
 #include <functional>
 
 template <typename T>
-class setHashed {
+class SetHashed {
 private:
     struct Entry {
         T value;
@@ -23,25 +23,25 @@ private:
     bool isPrime(size_t n) const;
 
 public:
-    setHashed(size_t initialSize = 17);
+    SetHashed(size_t initialSize = 17);
     void add(const T& value);
     void remove(const T& value);
     bool contains(const T& value) const;
-    setHashed<T> unionSet(const setHashed<T>& other) const;
-    setHashed<T> intersection(const setHashed<T>& other) const;
-    setHashed<T> difference(const setHashed<T>& other) const;
-    bool equals(const setHashed<T>& other) const;
+    SetHashed<T> sum(const SetHashed<T>& other) const;
+    SetHashed<T> intersection(const SetHashed<T>& other) const;
+    SetHashed<T> difference(const SetHashed<T>& other) const;
+    bool identical(const SetHashed<T>& other) const;
     void print() const;
     size_t getSize() const;
 };
 
 template <typename T>
-size_t setHashed<T>::hash(const T& value) const {
+size_t SetHashed<T>::hash(const T& value) const {
     return std::hash<T>{}(value) % tableSize;
 }
 
 template <typename T>
-size_t setHashed<T>::findPosition(const T& value) const {
+size_t SetHashed<T>::findPosition(const T& value) const {
     size_t startPos = hash(value);
     size_t pos = startPos;
 
@@ -56,7 +56,7 @@ size_t setHashed<T>::findPosition(const T& value) const {
 }
 
 template <typename T>
-void setHashed<T>::rehash() {
+void SetHashed<T>::rehash() {
     size_t oldTableSize = tableSize;
     std::vector<Entry> oldTable = table;
 
@@ -73,7 +73,7 @@ void setHashed<T>::rehash() {
 }
 
 template <typename T>
-size_t setHashed<T>::findNextPrime(size_t n) const {
+size_t SetHashed<T>::findNextPrime(size_t n) const {
     while (!isPrime(n)) {
         n++;
     }
@@ -81,7 +81,7 @@ size_t setHashed<T>::findNextPrime(size_t n) const {
 }
 
 template <typename T>
-bool setHashed<T>::isPrime(size_t n) const {
+bool SetHashed<T>::isPrime(size_t n) const {
     if (n <= 1) return false;
     if (n <= 3) return true;
     if (n % 2 == 0 || n % 3 == 0) return false;
@@ -95,13 +95,13 @@ bool setHashed<T>::isPrime(size_t n) const {
 }
 
 template <typename T>
-setHashed<T>::setHashed(size_t initialSize) {
+SetHashed<T>::SetHashed(size_t initialSize) {
     tableSize = findNextPrime(initialSize);
     table.resize(tableSize);
 }
 
 template <typename T>
-void setHashed<T>::add(const T& value) {
+void SetHashed<T>::add(const T& value) {
     if (contains(value)) {
         return;
     }
@@ -118,7 +118,7 @@ void setHashed<T>::add(const T& value) {
 }
 
 template <typename T>
-void setHashed<T>::remove(const T& value) {
+void SetHashed<T>::remove(const T& value) {
     size_t pos = findPosition(value);
 
     if (table[pos].occupied && !table[pos].deleted && table[pos].value == value) {
@@ -128,14 +128,14 @@ void setHashed<T>::remove(const T& value) {
 }
 
 template <typename T>
-bool setHashed<T>::contains(const T& value) const {
+bool SetHashed<T>::contains(const T& value) const {
     size_t pos = findPosition(value);
     return pos < tableSize && table[pos].occupied && !table[pos].deleted && table[pos].value == value;
 }
 
 template <typename T>
-setHashed<T> setHashed<T>::unionSet(const setHashed<T>& other) const {
-    setHashed<T> result(std::max(tableSize, other.tableSize));
+SetHashed<T> SetHashed<T>::sum(const SetHashed<T>& other) const {
+    SetHashed<T> result(std::max(tableSize, other.tableSize));
 
     for (size_t i = 0; i < tableSize; i++) {
         if (table[i].occupied && !table[i].deleted) {
@@ -153,8 +153,8 @@ setHashed<T> setHashed<T>::unionSet(const setHashed<T>& other) const {
 }
 
 template <typename T>
-setHashed<T> setHashed<T>::intersection(const setHashed<T>& other) const {
-    setHashed<T> result;
+SetHashed<T> SetHashed<T>::intersection(const SetHashed<T>& other) const {
+    SetHashed<T> result;
 
     for (size_t i = 0; i < tableSize; i++) {
         if (table[i].occupied && !table[i].deleted) {
@@ -168,8 +168,8 @@ setHashed<T> setHashed<T>::intersection(const setHashed<T>& other) const {
 }
 
 template <typename T>
-setHashed<T> setHashed<T>::difference(const setHashed<T>& other) const {
-    setHashed<T> result;
+SetHashed<T> SetHashed<T>::difference(const SetHashed<T>& other) const {
+    SetHashed<T> result;
 
     for (size_t i = 0; i < tableSize; i++) {
         if (table[i].occupied && !table[i].deleted) {
@@ -183,7 +183,7 @@ setHashed<T> setHashed<T>::difference(const setHashed<T>& other) const {
 }
 
 template <typename T>
-bool setHashed<T>::equals(const setHashed<T>& other) const {
+bool SetHashed<T>::identical(const SetHashed<T>& other) const {
     if (size != other.size) {
         return false;
     }
@@ -200,7 +200,7 @@ bool setHashed<T>::equals(const setHashed<T>& other) const {
 }
 
 template <typename T>
-void setHashed<T>::print() const {
+void SetHashed<T>::print() const {
     std::cout << "{ ";
     bool first = true;
     for (size_t i = 0; i < tableSize; i++) {
@@ -214,6 +214,6 @@ void setHashed<T>::print() const {
 }
 
 template <typename T>
-size_t setHashed<T>::getSize() const {
+size_t SetHashed<T>::getSize() const {
     return size;
 }

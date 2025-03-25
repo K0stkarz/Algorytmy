@@ -31,9 +31,9 @@ def plot_times(times):
         plt.ylabel('Time (ms)')
         plt.title(f'Time Complexity of {function.capitalize()} Function')
         plt.legend()
-        plt.show()
+        plt.savefig(f'/home/kostkarz/Dokumenty/Algorytmy/Semestr 4/Zestaw 2/Images/{function.capitalize()}.svg')
 
 if __name__ == "__main__":
-    file_path = '/home/kostkarz/Dokumenty/Algorytmy/Semestr 4/Zestaw 1/times.txt'
+    file_path = '/home/kostkarz/Dokumenty/Algorytmy/Semestr 4/Zestaw 2/timesA.txt'
     times = read_times(file_path)
     plot_times(times)
