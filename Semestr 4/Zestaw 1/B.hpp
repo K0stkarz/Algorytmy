@@ -20,6 +20,7 @@ public:
     ~setLinked();
     void add(T element);
     void remove(T element);
+    T removeFirst();
     bool contains(T element);
     setLinked sum(setLinked<T> set);
     setLinked intersection(setLinked<T> set);
@@ -92,6 +93,17 @@ void setLinked<T>::remove(T element) {
         delete temp;
         size--;
     }
+}
+
+template<typename T>
+T setLinked<T>::removeFirst() {
+    if (!head) throw std::out_of_range("Set is empty");
+    Node* temp = head;
+    T value = head->data;
+    head = head->next;
+    delete temp;
+    size--;
+    return value;
 }
 
 template<typename T>
