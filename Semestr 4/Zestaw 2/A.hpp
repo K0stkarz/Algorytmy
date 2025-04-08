@@ -20,6 +20,10 @@ public:
     SetSimple sum(SetSimple set);
     SetSimple intersection(SetSimple set);
     SetSimple difference(SetSimple set);
+    SetSimple createConsecutiveSet(int n, int m);
+    SetSimple createEvenStepSet(int n, int m);
+    SetSimple createAlphabetSet();
+    SetSimple createTwoLetterSet();
     bool identical(SetSimple set);
     void clear();
     void display() const;
@@ -27,12 +31,6 @@ public:
     void display_char() const; // Wyświetla elementy jako znaki (a-z)
     void display_two_char() const; // Wyświetla elementy jako pary znaków (aa-zz)
 };
-
-// Funkcje tworzące zbiory według podanych wzorów
-SetSimple createConsecutiveSet(int n, int m);
-SetSimple createEvenStepSet(int n, int m);
-SetSimple createAlphabetSet();
-SetSimple createTwoLetterSet();
 
 // Implementacja konstruktorów i destruktorów
 SetSimple::SetSimple(int n) {

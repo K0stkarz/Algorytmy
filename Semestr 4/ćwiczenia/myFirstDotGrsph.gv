@@ -1,0 +1,6 @@
+graph {
+    a[color = red]
+    a -- b[color = blue];
+    b -- c;
+    c -- a;
+}
