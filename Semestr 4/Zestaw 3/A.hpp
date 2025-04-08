@@ -1,25 +1,25 @@
 #include "../Zestaw 1/B.hpp"
 
 template <typename T>
-class PriortyQueue {
+class PriorityQueue {
 private:
     setLinked<T> queue;
 public:
-    PriortyQueue() = default;
-    PriortyQueue(const PriortyQueue<T>& other) : queue(other.queue) {}
-    ~PriortyQueue() = default;
+    PriorityQueue() = default;
+    PriorityQueue(const PriorityQueue<T>& other) : queue(other.queue) {}
+    ~PriorityQueue() = default;
     void add(T value);
     T delete_min();
     void display();
 };
 
 template <typename T>
-void PriortyQueue<T>::add(T value) {
+void PriorityQueue<T>::add(T value) {
     queue.add(value);
 }
 
 template <typename T>
-T PriortyQueue<T>::delete_min() {
+T PriorityQueue<T>::delete_min() {
     try {
         return queue.removeFirst();
     } catch (const std::out_of_range& e) {
@@ -28,7 +28,7 @@ T PriortyQueue<T>::delete_min() {
 }
 
 template <typename T>
-void PriortyQueue<T>::display() {
+void PriorityQueue<T>::display() {
     queue.display();
 }
 

@@ -4,7 +4,7 @@
 
 int main() {
     try {
-        PriortyQueueBinary<int> pq;
+        PriorityQueueBinary<int> pq;
 
         // Test 1: Dodawanie elementów i wyświetlanie
         std::cout << "Test 1: Dodawanie elementów 5, 3, 8\n";
@@ -58,7 +58,7 @@ int main() {
 
         // Test 7: Testowanie pustej kolejki
         std::cout << "\nTest 7: Testowanie pustej kolejki\n";
-        PriortyQueueBinary<int> empty_pq;
+        PriorityQueueBinary<int> empty_pq;
         try {
             empty_pq.delete_min();
             std::cout << "Błąd: Powinien być zgłoszony wyjątek dla pustej kolejki" << std::endl;

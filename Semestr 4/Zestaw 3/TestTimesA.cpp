@@ -11,15 +11,15 @@ int main() {
     const int iterations = 10;
     double time[iterations];
 
-    PriortyQueue<int> priority_queue;
-    PriortyQueueBinary<int> priority_queue_binary;
+    PriorityQueue<int> priority_queue;
+    PriorityQueueBinary<int> priority_queue_binary;
     
     for (int i = 0; i < size * iterations * 100 * 9 ; i++) {
         priority_queue.add(i);
         priority_queue_binary.add(i);
     }
     
-    std::cout << "PriortyQueue remove" << std::endl;
+    std::cout << "PriorityQueue remove" << std::endl;
     for (int i = 0; i < iterations; i++) {
         auto start = std::chrono::high_resolution_clock::now();
         for (int k = 0; k < 100; k++) {
@@ -32,7 +32,7 @@ int main() {
         std::cout << i << " " << avgTime << std::endl;
     }
 
-    std::cout << "PriortyQueueBinary remove" << std::endl;
+    std::cout << "PriorityQueueBinary remove" << std::endl;
     for (int i = 0; i < iterations; i++) {
         auto start = std::chrono::high_resolution_clock::now();
         for (int k = 0; k < 100; k++) {

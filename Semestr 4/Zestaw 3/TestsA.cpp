@@ -4,7 +4,7 @@
 
 int main() {
     try {
-        PriortyQueue<int> pq;
+        PriorityQueue<int> pq;
 
         // Test 1: Dodawanie elementów i wyświetlanie
         std::cout << "Test 1: Dodawanie elementów 5, 3, 8\n";
