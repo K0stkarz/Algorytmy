@@ -20,22 +20,22 @@ vector<string> getMovements() {
 
 // Sprawdza, czy dwa ruchy są w konflikcie
 bool doConflict(const string& m1, const string& m2) {
-    // Ruchy z E konfliktują ze wszystkimi
-    if (m1.substr(0, 2) == "E->" || m2.substr(0, 2) == "E->") {
+    // Obsługa ruchów z E:
+    // - Jeśli oba ruchy pochodzą z E, nie konfliktują.
+    // - Jeśli tylko jeden z ruchów pochodzi z E, to konfliktuje z ruchem z innego kierunku.
+    if (m1[0] == 'E' || m2[0] == 'E') {
+        if (!(m1[0] == 'E' && m2[0] == 'E')) {
+            return true;
+        }
+    }
+    
+    // Ruchy z tego samego kierunku (A, B lub D) konfliktują ze sobą.
+    if (m1[0] == m2[0] && m1[0] != 'E') {
         return true;
     }
     
-    // Ruchy przeciwne (np. A->B i B->A)
-    if (m1.substr(0, 1) == m2.substr(3, 1) && m1.substr(3, 1) == m2.substr(0, 1)) {
-        return true;
-    }
-    
-    // Ruchy z A, B, D konfliktują między sobą
-    vector<string> sources = {"A", "B", "D"};
-    string src1 = m1.substr(0, 1);
-    string src2 = m2.substr(0, 1);
-    if (find(sources.begin(), sources.end(), src1) != sources.end() &&
-        find(sources.begin(), sources.end(), src2) != sources.end()) {
+    // Ruchy przeciwne – przykładowo A->B i B->A.
+    if (m1[0] == m2[3] && m1[3] == m2[0]) {
         return true;
     }
     
@@ -66,9 +66,8 @@ Graph<string, int, int> buildConflictGraph() {
 // Algorytm kolorowania grafu (algorytm zachłanny)
 map<string, int> colorGraph(const Graph<string, int, int>& graph, const vector<string>& vertices) {
     map<string, int> colorMap;
-    int maxColor = 0;
     
-    // Sortowanie wierzchołków malejąco według stopnia
+    // Sortowanie wierzchołków malejąco według liczby sąsiadów
     vector<string> sortedVertices = vertices;
     sort(sortedVertices.begin(), sortedVertices.end(), [&](const string& a, const string& b) {
         return graph.neighbours(a).size() > graph.neighbours(b).size();
@@ -86,7 +85,6 @@ map<string, int> colorGraph(const Graph<string, int, int>& graph, const vector<s
         while (usedColors.count(color)) color++;
         
         colorMap[v] = color;
-        maxColor = max(maxColor, color);
     }
     
     return colorMap;
