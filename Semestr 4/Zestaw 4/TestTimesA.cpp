@@ -6,9 +6,9 @@
 using namespace std;
 
 int main() {
-    // Większe wartości n (do 20 000) i gęstsze kroki
-    vector<int> vertex_counts = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000}; 
-    const int EDGES_PER_VERTEX = 100; // Zwiększona liczba krawędzi na wierzchołek
+    vector<int> vertex_counts = {10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000}; 
+    const int EDGES_PER_VERTEX = 1000; // Mniej krawędzi, aby skrócić czas przygotowania grafu
+    const int REPEATS = 100; // Mniej powtórzeń ze względu na długi czas wykonania
 
     cout << "vertex_count,time_ms" << endl;
 
@@ -20,7 +20,7 @@ int main() {
             graph.addVertex(i);
         }
 
-        // Dodawanie krawędzi (każdy wierzchołek łączy się z 100 następnymi)
+        // Dodawanie krawędzi (każdy wierzchołek łączy się z 10 następnymi)
         if (n > 1) {
             for (int i = 0; i < n; ++i) {
                 for (int j = 1; j <= EDGES_PER_VERTEX; ++j) {
@@ -30,13 +30,29 @@ int main() {
             }
         }
 
-        // Pomiar czasu usuwania wierzchołka 0 (najgorszy przypadek)
-        auto start = chrono::high_resolution_clock::now();
-        graph.removeVertex(0);
-        auto end = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+        // Pomiar czasu z powtórzeniami
+        double total_duration = 0;
 
-        cout << n << "," << duration << endl;
+        for (int r = 0; r < REPEATS; ++r) {
+            // Dodawanie wierzchołka 0 na nowo przed każdym pomiarem
+            if (r > 0) {
+                graph.addVertex(0);
+                for (int j = 1; j <= EDGES_PER_VERTEX; ++j) {
+                    int target = (0 + j) % n;
+                    graph.addEdge(0, target);
+                    graph.addEdge(target, 0);
+                }
+            }
+
+            // Pomiar usuwania wierzchołka 0
+            auto start = chrono::high_resolution_clock::now();
+            graph.removeVertex(0);
+            auto end = chrono::high_resolution_clock::now();
+            total_duration += chrono::duration_cast<chrono::milliseconds>(end - start).count();
+        }
+
+        // Średni czas usuwania
+        cout << n << "," << total_duration / REPEATS << endl;
     }
 
     return 0;
