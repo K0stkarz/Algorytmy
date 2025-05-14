@@ -13,5 +13,5 @@ int main() {
     g.addEdge("C", "B");
 
     g.generateDotFile("graph.dot"); 
-    return
+    return 0;
 }

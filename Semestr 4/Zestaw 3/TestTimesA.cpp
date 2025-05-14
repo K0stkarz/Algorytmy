@@ -11,6 +11,8 @@ int main() {
     const int iterations = 10;
     double time[iterations];
 
+    // dopisać testy gdzie dodaje się 1000 elementów i usunąć korzen później 2000 i tak dalej
+
     PriorityQueue<int> priority_queue;
     PriorityQueueBinary<int> priority_queue_binary;
     
